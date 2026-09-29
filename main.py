@@ -1,20 +1,13 @@
-import random
+from fastapi import FastAPI
 
-CHARACTERS = ("Frodo", "Sam", "Merry", "Pippin", "Aragorn", "Legolas", "Gimli", "Boromir", "Gandalf", "Saruman", "Sauron")
+app = FastAPI()
 
-def random_characters():
-    return random.choice(CHARACTERS)
+@app.get("/")
 
-def ring_bearer(name):
-    return name in ("frodo", "sam")
+def read_root():
+    return {"message" : "Hello, FastAPI"}
 
-if __name__ == "__main__":
-    character = random_characters()
-    
-    if ring_bearer(character):
-        
-        print(f"{character} is a ring bearer")
-        
-    else:
-        
-        print(f"{character} is not a ring bearer")
+@app.get("/items/{item_id}")
+
+def read_item(item_id: int):
+    return {"item_id": item_id}
